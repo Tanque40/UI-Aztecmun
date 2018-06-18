@@ -23,6 +23,9 @@ class InterfazController < ApplicationController
   end
 
   def create
-      presente = params[:presente]
+      presentes = params[:presente]
+      presentes.each do |s|
+        Presente.create(s[0], s[1])
+      end
   end
 end
