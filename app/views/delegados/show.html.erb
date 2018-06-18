@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pais:</strong>
+  <%= @delegado.pais %>
+</p>
+
+<p>
+  <strong>Comite:</strong>
+  <%= @delegado.comite.comite %>
+</p>
+
+<%= link_to 'Edit', edit_delegado_path(@delegado) %> |
+<%= link_to 'Back', delegados_path %>

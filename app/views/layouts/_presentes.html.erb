@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col s6">
+        <div class="card z-depth-5">
+            <div class="card-content">
+                <% if esCDE? %>
+                    <span class="card-title">Debatientes</span>
+                <% elsif  esCIJ? %>
+                    <span class="card-title">Jueces y Agencias</span>
+                <% else %>
+                    <span class="card-title">Delegates</span>
+                <% end %>
+                <hr>
+                <ul class="collection">
+                    <%  @delegados.each do |d| %>
+                        <li class="collection-item" id="<%= d.id %>">
+                            <div>
+                                <%= d.pais %>
+                                <a href="#!" class="secondary-content waves-effect waves-light btn"  data-remote="true" onclick='presente("<%= d.id %>", "<%= d.comite_id %>", "<%= d.pais %>")'>
+                                    <% if esCDE? || esCIJ? %>
+                                        Presente
+                                    <% else %>
+                                        Present
+                                    <% end %>
+                                </a>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col s6">
+        <div class="card z-depth-5">
+            <div class="card-content">
+                <% if esCDE? %>
+                    <span class="card-title">Debatientes presentes</span>
+                <% elsif  esCIJ? %>
+                    <span class="card-title">Jueces y Agencias presentes</span>
+                <% else %>
+                    <span class="card-title">Present delegates</span>
+                <% end %>
+                <hr>
+                <%= form_for @presente, action: "create", id: :presentes_form do |f|%>
+                    <ul class="collection" id="presentes_collection">
+
+                    </ul>
+                    <center>
+                        <% if esCDE? || esCIJ? %>
+                            <%= f.submit "Terminar pase de lista", class: "waves-effect waves-light btn" %>
+                        <% else %>
+                            <%= f.submit "End list roll", class: "waves-effect waves-light btn" %>
+                        <% end %>
+                    </center>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+i = 0;
+function presente(idPais, idComite, pais){
+    $('#'+idPais).hide();
+    $("#presentes_collection").append('<li class="collection-item">'+pais+'<div class="input-field hide"><label for="presente_pais_'+i+'" ><input type="text" value="'+idPais+'" id="presente_pais_'+i+' name="presente['+i+'][0]" "></div><div class="input-field hide"><label for="presente_comite_'+i+'" ><input type="text" value="'+idComite+'" id="presente_comite_'+i+' name="presente['+i+'][1]" "></div></li>')
+    i += 1;
+    return false;
+}
+</script>

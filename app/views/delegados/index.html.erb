@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Delegados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pais</th>
+      <th>Comite</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @delegados.each do |delegado| %>
+      <tr>
+        <td><%= delegado.pais %></td>
+        <td><%= delegado.comite.comite %></td>
+        <td><%= link_to 'Show', delegado %></td>
+        <td><%= link_to 'Edit', edit_delegado_path(delegado) %></td>
+        <td><%= link_to 'Destroy', delegado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Delegado', new_delegado_path %>

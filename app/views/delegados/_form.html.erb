@@ -1,0 +1,40 @@
+<%= form_with(model: delegado, local: true) do |form| %>
+  <% if delegado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(delegado.errors.count, "error") %> prohibited this delegado from being saved:</h2>
+
+      <ul>
+      <% delegado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :pais %>
+    <%= form.text_field :pais %>
+  </div>
+
+
+
+  <div class="field">
+      <%= form.select(:comite_id) do %>
+          <% comite.each do |c| -%>
+              <%= content_tag(:option, c.comite, value: c.id)%>
+          <% end %>
+          <%= form.label :comite_id%>
+      <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+//Inicializamos el select
+$(document).ready(function(){
+   $('select').material_select();
+ });
+</script>
