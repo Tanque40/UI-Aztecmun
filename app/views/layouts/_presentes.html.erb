@@ -40,15 +40,19 @@
                     <span class="card-title">Present delegates</span>
                 <% end %>
                 <hr>
-                <%= form_for @presente, action: "create", id: :presentes_form do |f|%>
+                <%= form_tag({action: "create"}, id: :presentes_form) do |f|%>
                     <ul class="collection" id="presentes_collection">
-
+                        <% if !@presentes.blank? %>
+                            <% @presentes.each do |s|%>
+                                <li class="collection-item"><%= s.pais %></li>
+                            <% end %>
+                        <% end %>
                     </ul>
                     <center>
                         <% if esCDE? || esCIJ? %>
-                            <%= f.submit "Terminar pase de lista", class: "waves-effect waves-light btn" %>
+                            <%= submit_tag "Terminar pase de lista", class: "waves-effect waves-light btn" %>
                         <% else %>
-                            <%= f.submit "End list roll", class: "waves-effect waves-light btn" %>
+                            <%= submit_tag "End list roll", class: "waves-effect waves-light btn" %>
                         <% end %>
                     </center>
                 <% end %>
@@ -60,7 +64,7 @@
 i = 0;
 function presente(idPais, idComite, pais){
     $('#'+idPais).hide();
-    $("#presentes_collection").append('<li class="collection-item">'+pais+'<div class="input-field hide"><label for="presente_pais_'+i+'" ><input type="text" value="'+idPais+'" id="presente_pais_'+i+' name="presente['+i+'][0]" "></div><div class="input-field hide"><label for="presente_comite_'+i+'" ><input type="text" value="'+idComite+'" id="presente_comite_'+i+' name="presente['+i+'][1]" "></div></li>')
+    $("#presentes_collection").append('<li class="collection-item">'+pais+'<div class="input-field hide"><label for="presente_pais_'+i+'" ><input type="text" value="'+idPais+'" id="presente_pais_'+i+'" name="delegado['+i+']"></div></li>')
     i += 1;
     return false;
 }

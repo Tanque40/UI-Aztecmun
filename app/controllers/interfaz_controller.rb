@@ -3,29 +3,32 @@ class InterfazController < ApplicationController
   end
 
   def CDE
-      @delegados = Delegado.where(comite_id: 1).sort
-      @presente = Presente.new
+      @delegados = Delegado.where('comite_id = ? and presente = ?', 1, false).sort
+      @presentes = Delegado.where('comite_id = ? and presente = ?', 1, true).sort
   end
 
   def UNEP
-      @delegados = Delegado.where(comite_id: 2)
-      @presente = Presente.new
+      @delegados = Delegado.where('comite_id = ? and presente = ?', 2, false)
+      @presentes = Delegado.where('comite_id = ? and presente = ?', 2, true)
   end
 
   def CIJ
-      @delegados = Delegado.where(comite_id: 3)
-      @presente = Presente.new
+     @delegados = Delegado.where('comite_id = ? and presente = ?', 3, false)
+     @presentes = Delegado.where('comite_id = ? and presente = ?', 3, true)
   end
 
   def NATO
-      @delegados = Delegado.where(comite_id: 4)
-      @presente = Presente.new
+      @delegados = Delegado.where('comite_id = ? and presente = ?', 1, false)
+      @presentes = Delegado.where('comite_id = ? and presente = ?', 1, true)
   end
 
   def create
-      presentes = params[:presente]
-      presentes.each do |s|
-        Presente.create(s[0], s[1])
+      presentes = params[:delegado]
+      logger.info("Tienes es parametros pendejo #{presentes}")
+      presentes.each do |key, s|
+          logger.info("Esta pendejada es la que quieres buscar #{presentes[key]}")
+        Delegado.find(presentes[key]).update_attribute(:presente, true)
       end
+      redirect_back(fallback_location: root_path)
   end
 end

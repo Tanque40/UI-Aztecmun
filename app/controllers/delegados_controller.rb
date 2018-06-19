@@ -71,6 +71,6 @@ $comite = Comite.all
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delegado_params
-      params.require(:delegado).permit(:pais, :comite_id)
+      params.require(:delegado).permit(:pais, :comite_id, :presente)
     end
 end

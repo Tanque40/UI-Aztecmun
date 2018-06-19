@@ -10,7 +10,9 @@
 <% end %>
 <nav>
     <div class="nav-wrapper <%=color%>">
-        <a href="#!" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons white-text    ">menu</i></a>
+        <% if esCDE? || esCIJ? %>
+            <a href="#!" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons white-text    ">menu</i></a>
+        <% end %>
         <a href="#!" class="brand-logo"><%= comite %></a>
         <ul class="right">
             <li><span id="Hora Actual"></span></li>
