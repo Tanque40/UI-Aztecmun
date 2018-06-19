@@ -1,3 +1,3 @@
 class Delegado < ApplicationRecord
-  belongs_to :comites
+  belongs_to :comite
 end

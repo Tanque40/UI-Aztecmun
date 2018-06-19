@@ -13,4 +13,48 @@
   <body>
     <%= yield %>
   </body>
+  <script type="text/javascript">
+  function votacion(titulo){
+      $("#time").hide();
+      $("#votacion").show()
+      $("#tituloVotacion").text(titulo);
+  }
+  function votar(comite){
+      tipo = $("#tituloVotacion").text();
+      console.log($("#aFavor").val());
+      aFavor = parseInt($("#aFavor").val());
+      contra = parseInt($("#contra").val());
+      abstencion = parseInt($("#abstencion").val());
+      pasa = true;
+      if(comite == "CIJ"){
+          if (aFavor > contra) {
+              if (tipo == "Receso Parlamentario") {
+                  swal({
+                      title: "La mocion pasa",
+                      text: "Pueden salir",
+                      type: "success",
+                      html: '<%= link_to "Continuar", cerrar_path("CIJ"), :class => "waves-effect waves-light btn" %>',
+                      showConfirmButton: false
+                  });
+              }
+          }else {
+              if (tipo == "Receso Parlamentario") {
+                  swal({
+                      title: "La mocion no pasa",
+                      text: "Repetir votación",
+                      type: "error"
+                  }).then(function() {
+                      $("#time").show();
+                      $("#votacion").hide();
+                  });
+              }
+          }
+      }
+  }
+  function aniadirPresentes(){
+      $("#time").hide();
+      $("#votacion").hide()
+      $("#lista").show();
+  }
+  </script>
 </html>

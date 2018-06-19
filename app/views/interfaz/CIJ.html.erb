@@ -17,15 +17,13 @@
     </div>
 </div>
 
-<%= render :partial => "layouts/votacion", presentes: @presentes%>
+<%= render :partial => "layouts/votacion", presentes: @presentes %>
 
 <script type="text/javascript">
     $('#time').hide();
+    $('#votacion').hide();
      if (<%= !@presentes.blank? %>){
         $('#lista').hide();
         $('#time').show();
      }
-     $(document).ready(function(){
-        $('select').material_select();
-      });
 </script>

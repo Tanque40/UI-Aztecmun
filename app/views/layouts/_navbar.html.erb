@@ -10,20 +10,26 @@
 <% end %>
 <nav>
     <div class="nav-wrapper <%=color%>">
-        <% if esCDE? || esCIJ? %>
+        <% if esNATO? || esUNEP? %>
             <a href="#!" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons white-text    ">menu</i></a>
         <% end %>
         <a href="#!" class="brand-logo"><%= comite %></a>
         <ul class="right">
             <li><span id="Hora Actual"></span></li>
-            <li><a href="#!" onclick="aniadirPresentes()"><i class="material-icons white-text">add</i></a></li>
-            <li><a href="#!" onclick="votacion('Cierre de sesión')"><i class="material-icons white-text">power_settings_new</i></a></li>
+            <li><a href="#!" onclick="aniadirPresentes()" data-remote="true"><i class="material-icons white-text">add</i></a></li>
+            <% if esCIJ? %>
+                <li><a href="#!" onclick='votacion("Receso Parlamentario")' data-remote="true"><i class="material-icons white-text">power_settings_new</i></a></li>
+            <% elsif esNATO? || esUNEP? %>
+                <li><a href="#!" onclick='votacion("Log out")' data-remote="true"><i class="material-icons white-text">power_settings_new</i></a></li>
+            <% else %>
+                <li><a href="#!" onclick='votacion("Cierre de Sesión")' data-remote="true"><i class="material-icons white-text">power_settings_new</i></a></li>
+            <% end %>
         </ul>
     </div>
 </nav>
 <ul id="slide-out" class="side-nav">
     <% mociones.each do |m| %>
-        <li><a href="#!" onclick="votacion("<%= m %>")"><%= m %></a></li>
+        <li><a href="#!" onclick="votacion("<%= m %>")" data-remote="true"><%= m %></a></li>
     <% end %>
 </ul>
   <script type="text/javascript">

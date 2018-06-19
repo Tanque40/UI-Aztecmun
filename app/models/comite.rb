@@ -1,4 +1,4 @@
 class Comite < ApplicationRecord
-    has_many :topics
-    has_many :delegados
+    has_many :topic
+    has_many :delegado
 end

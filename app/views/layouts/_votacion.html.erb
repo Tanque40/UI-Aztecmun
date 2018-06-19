@@ -1,23 +1,65 @@
-<div class="card">
-    <span id="tituloVotacion" class="card-title"></span>
-    <div class="card-content">
+<div id="votacion">
+    <div class="container">
         <div class="row">
-            <div class="col s6">
-                <%= select_tag (:propone) do%>
-                    <% presentes.each do |s|%>
-                        <%= content_tag(:option, s.pais, value: s.pais) %>
-                    <% end %>
-                    <%= label_tag :propone%>
-                <% end %>
-            </div>
-            <div class="col s6">
-                <%= select_tag(:secunda) do%>
-                    <% presentes.each do |s|%>
-                        <%= content_tag(:option, s.pais, value: s.pais) %>
-                    <% end %>
-                    <%= label_tag :secunda%>
-                <% end %>
+            <div class="col s12">
+                <div class="card z-depth-5">
+                    <div class="card-content">
+                        <span id="tituloVotacion" class="card-title"></span>
+                        <div class="row">
+                            <% if !@presentes.blank? %>
+                                <div class="col s6">
+                                    <div class="input-field">
+                                        <% options = @presentes.map {|s| [s.pais, s.pais]} %>
+                                        <%= select_tag(:propone, options_for_select(options)) %>
+                                        <%= label_tag :propone %>
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field">
+                                        <% logger.info("#{@presentes[0].pais}")%>
+                                        <%= select_tag(:secunda, options_for_select(options)) %>
+                                        <%= label_tag :secunda %>
+                                    </div>
+                                </div>
+                            <% end %>
+                            <div class="row">
+                                <center>
+                                    <div class="col s4">
+                                        <div class="input-field">
+                                            <%= number_field_tag(:aFavor)%>
+                                            <%= label_tag "A favor" %>
+                                        </div>
+                                    </div>
+                                    <div class="col s4">
+                                        <div class="input-field">
+                                            <%= number_field_tag(:contra)%>
+                                            <%= label_tag "En contra" %>
+                                        </div>
+                                    </div>
+                                    <% if !esCIJ? %>
+                                        <div class="col s4">
+                                            <div class="input-field">
+                                                <%= number_field_tag(:abstencion)%>
+                                                <%= label_tag "Abstención" %>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <center>
+                            <a href="" onclick='votar("<%= action_name %>")' data-remote="true" class="waves-effect waves-light btn">Votar</a>
+                        </center>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+   $('select').material_select();
+ });
+</script>

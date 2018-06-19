@@ -15,11 +15,15 @@ class InterfazController < ApplicationController
   def CIJ
      @delegados = Delegado.where('comite_id = ? and presente = ?', 3, false)
      @presentes = Delegado.where('comite_id = ? and presente = ?', 3, true)
+     @presentes.each do |s|
+         logger.info("Tienes a estos pendejos presentes #{s.pais}")
+    end
+
   end
 
   def NATO
-      @delegados = Delegado.where('comite_id = ? and presente = ?', 1, false)
-      @presentes = Delegado.where('comite_id = ? and presente = ?', 1, true)
+      @delegados = Delegado.where('comite_id = ? and presente = ?', 4, false)
+      @presentes = Delegado.where('comite_id = ? and presente = ?', 4, true)
   end
 
   def create
@@ -30,5 +34,12 @@ class InterfazController < ApplicationController
         Delegado.find(presentes[key]).update_attribute(:presente, true)
       end
       redirect_back(fallback_location: root_path)
+  end
+
+  def cerrar
+      comite = params[:comite]
+      id = Comite.where(comite: comite)
+      Delegado.where("comite_id = ? AND presente = ?", id.ids, true).update_all(presente: false)
+      redirect_to root_path
   end
 end
