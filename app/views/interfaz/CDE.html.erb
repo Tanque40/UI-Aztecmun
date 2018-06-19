@@ -1,3 +1,36 @@
 <%= render :partial => "layouts/navbar" %>
-<%= render :partial => "layouts/presentes", delegados: @delegados, presentes: @presentes  %>
-<%= render :partial => "layouts/timer"  %>
+<div id="lista">
+    <%= render :partial => "layouts/presentes", delegados: @delegados, presentes: @presentes  %>
+</div>
+<div id="oradores">
+    <div class="row">
+        <div class="col s6">
+            <div class="card z-depth-5 card1">
+                <div class="card-content">
+                    <%= render :partial => "layouts/oradores"%>
+                </div>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="card z-depth-5 card1">
+                <div class="card-content">
+                    <%= render :partial => "layouts/timer"%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="time">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card z-depth-5">
+                    <div class="card-content">
+                        <%= render :partial => "layouts/timer"%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%= render :partial => "layouts/votacion", presentes: @presentes %>

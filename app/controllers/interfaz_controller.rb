@@ -18,7 +18,6 @@ class InterfazController < ApplicationController
      @presentes.each do |s|
          logger.info("Tienes a estos pendejos presentes #{s.pais}")
     end
-
   end
 
   def NATO
@@ -31,7 +30,7 @@ class InterfazController < ApplicationController
       logger.info("Tienes es parametros pendejo #{presentes}")
       presentes.each do |key, s|
           logger.info("Esta pendejada es la que quieres buscar #{presentes[key]}")
-        Delegado.find(presentes[key]).update_attribute(:presente, true)
+          Delegado.find(presentes[key]).update_attribute(:presente, true)
       end
       redirect_back(fallback_location: root_path)
   end

@@ -14,6 +14,12 @@
     <%= yield %>
   </body>
   <script type="text/javascript">
+  $('#time').hide();
+  $('#votacion').hide();
+   if (<%= !@presentes.blank? %>){
+      $('#lista').hide();
+      $('#time').show();
+   }
   function votacion(titulo){
       $("#time").hide();
       $("#votacion").show()
