@@ -36,6 +36,7 @@ function temporizador(){
             'success'
         );
         clearTimeout(time);
+        removerDeOradores();
     }
   }, 1000);
 }
@@ -89,6 +90,7 @@ function continuar(){
           'success'
         )
         clearTimeout(time);
+        removerDeOradores();
       }
     }, 1000);
 }

@@ -4,6 +4,7 @@
             <div class="col s12">
                 <div class="card z-depth-5">
                     <div class="card-content">
+                        <span><%= (esCDE? || esCIJ?)? "Total de presentes: " : "Presents: "%> <%= @totalPresentes %></span>
                         <span id="tituloVotacion" class="card-title"></span>
                         <div class="row">
                             <% if !@presentes.blank? %>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="card-action">
                         <center>
-                            <a href="" onclick='votar("<%= action_name %>")' data-remote="true" class="waves-effect waves-light btn">Votar</a>
+                            <a href="" onclick='votar("<%= action_name %>")' data-remote="true" class="waves-effect waves-light btn"><%= (esNATO? || esUNEP?)? "Vote" : "Votar" %></a>
                         </center>
                     </div>
                 </div>

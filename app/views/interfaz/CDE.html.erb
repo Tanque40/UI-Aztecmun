@@ -1,25 +1,29 @@
 <%= render :partial => "layouts/navbar" %>
+<%= render :partial => "layouts/topic" %>
+<%= render :partial => "layouts/contraYSoloContra" %>
 <div id="lista">
     <%= render :partial => "layouts/presentes", delegados: @delegados, presentes: @presentes  %>
 </div>
-<div id="oradores">
-    <div class="row">
-        <div class="col s6">
-            <div class="card z-depth-5 card1">
-                <div class="card-content">
-                    <%= render :partial => "layouts/oradores"%>
+<% if !@finishOradores[0].finishOradores %>
+    <div id="oradores">
+        <div class="row">
+            <div class="col s6">
+                <div class="card z-depth-5 card1">
+                    <div class="card-content">
+                        <%= render :partial => "layouts/oradores"%>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col s6">
-            <div class="card z-depth-5 card1">
-                <div class="card-content">
-                    <%= render :partial => "layouts/timer"%>
+            <div class="col s6">
+                <div class="card z-depth-5 card1">
+                    <div class="card-content">
+                        <%= render :partial => "layouts/segundotimer"%>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<% end %>
 <div id="time">
     <div class="container">
         <div class="row">

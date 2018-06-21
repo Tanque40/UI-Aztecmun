@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_044530) do
+ActiveRecord::Schema.define(version: 2018_06_20_180845) do
 
   create_table "comites", force: :cascade do |t|
     t.string "comite"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "finishOradores", default: false, null: false
   end
 
   create_table "delegados", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_06_18_044530) do
     t.text "topico"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "use", default: false, null: false
     t.index ["comite_id"], name: "index_topics_on_comite_id"
   end
 

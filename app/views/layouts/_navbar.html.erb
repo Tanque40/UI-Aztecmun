@@ -22,6 +22,7 @@
             <% elsif esNATO? || esUNEP? %>
                 <li><a href="#!" onclick='votacion("Log out")' data-remote="true"><i class="material-icons white-text">power_settings_new</i></a></li>
             <% else %>
+                <li><a href="#!" onclick='votacionFinal("Votacion Final")' data-remote="true"><i class="material-icons white-text">done_all</i></a></li>
                 <li><a href="#!" onclick='votacion("Cierre de Sesión")' data-remote="true"><i class="material-icons white-text">power_settings_new</i></a></li>
             <% end %>
         </ul>
@@ -29,7 +30,7 @@
 </nav>
 <ul id="slide-out" class="side-nav">
     <% mociones.each do |m| %>
-        <li><a href="#!" onclick="votacion("<%= m %>")" data-remote="true"><%= m %></a></li>
+        <li><a href="#!" onclick='votacion("<%= m %>")' data-remote="true"><%= m %></a></li>
     <% end %>
 </ul>
 <script type="text/javascript">

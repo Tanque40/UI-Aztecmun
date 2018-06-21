@@ -1,62 +1,236 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>UIAztecmun</title>
+<head>
+<title>UIAztecmun</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Comfortaa', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', 'data-turbolinks-track': 'reload'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
+</head>
+<body>
     <%= yield %>
-  </body>
-  <script type="text/javascript">
-  $('#time').hide();
-  $('#votacion').hide();
-   if (<%= !@presentes.blank? %>){
-      $('#lista').hide();
-      $('#time').show();
-   }
-  function votacion(titulo){
-      $("#time").hide();
-      $("#votacion").show()
-      $("#tituloVotacion").text(titulo);
-  }
-  function votar(comite){
-      tipo = $("#tituloVotacion").text();
-      console.log($("#aFavor").val());
-      aFavor = parseInt($("#aFavor").val());
-      contra = parseInt($("#contra").val());
-      abstencion = parseInt($("#abstencion").val());
-      pasa = true;
-      if(comite == "CIJ"){
-          if (aFavor > contra) {
-              if (tipo == "Receso Parlamentario") {
-                  swal({
-                      title: "La mocion pasa",
-                      text: "Pueden salir",
-                      type: "success",
-                      html: '<%= link_to "Continuar", cerrar_path("CIJ"), :class => "waves-effect waves-light btn" %>',
-                      showConfirmButton: false
-                  });
-              }
-          }else {
-              if (tipo == "Receso Parlamentario") {
-                  swal({
-                      title: "La mocion no pasa",
-                      text: "Repetir votación",
-                      type: "error"
-                  }).then(function() {
-                      $("#time").show();
-                      $("#votacion").hide();
-                  });
-              }
-          }
-      }
-  }
+</body>
+<script type="text/javascript">
+if (<%= !@presentes.blank? && @activeTopic %>){
+    $('#lista').hide();
+    $('#contraYSoloContra').hide();
+    $('#votacion').hide();
+    $("#XDDDDDDD").hide();
+    <% if esCDE? %>
+        $('#time').hide();
+        $('#oradores').show();
+        <% if @finishOradores[0].finishOradores %>
+            $('#time').show();
+        <% end %>
+    <% elsif esCIJ? %>
+        $('#time').show();
+    <% else %>
+        $('#time').hide();
+    <% end %>
+}else if (<%= !@presentes.blank? %>){
+    $('#contraYSoloContra').hide();
+    $("#lista").hide();
+    $('#time').hide();
+    $('#votacion').hide();
+    $('#oradores').hide();
+    $("#elegirTopic").show();
+}else {
+    $("#elegirTopic").hide();
+    $('#contraYSoloContra').hide();
+    $('#time').hide();
+    $('#votacion').hide();
+    $('#oradores').hide();
+}
+function votacion(titulo){
+  $("#time").hide();
+  $('#oradores').hide();
+  $('#lista').hide();
+  $('#elegirTopic').hide();
+  $('#contraYSoloContra').hide();
+  $("#votacion").show()
+  $("#tituloVotacion").text(titulo);
+}
+function votar(comite){
+    tipo = $("#tituloVotacion").text();
+    console.log($("#aFavor").val());
+    aFavor = parseInt($("#aFavor").val());
+    contra = parseInt($("#contra").val());
+    abstencion = parseInt($("#abstencion").val());
+    pasa = true;
+    if(comite == "CIJ"){
+        if (aFavor > contra) {
+            if (tipo == "Receso Parlamentario") {
+                swal({
+                    title: "La mocion pasa",
+                    text: "Pueden salir",
+                    type: "success",
+                    html: '<%= link_to "Continuar", cerrar_path("CIJ"), :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+        }
+        else {
+            if (tipo == "Receso Parlamentario") {
+                swal({
+                    title: "La mocion no pasa",
+                    text: "Repetir votación",
+                    type: "error"
+                }).then(function() {
+                    $("#time").show();
+                    $("#votacion").hide();
+                });
+            }
+        }
+    }
+    else if (comite == "CDE") {
+        if (aFavor > contra) {
+            if (tipo == "Cierre de Sesión") {
+                swal({
+                    title: "La mocion pasa",
+                    text: "Pueden salir",
+                    type: "success",
+                    html: '<%= link_to "Continuar", cerrar_path("CDE"), :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+            else if (tipo == "Apertura de tema" || "Elegir otro tema") {
+                swal({
+                    title: "La mocion pasa",
+                    text: "Se procedera a elegir tema.",
+                    type: "success"
+                }).then(function() {
+                    $("#votacion").hide();
+                    $("#elegirTopic").show();
+                });
+            }
+        }else {
+            if (tipo == "Cierre de Sesión") {
+                swal({
+                    title: "La mocion no pasa",
+                    text: "Repetir votación",
+                    type: "error"
+                }).then(function() {
+                    $("#time").show();
+                    $("#votacion").hide();
+                });
+            }else if (tipo == "Apertura de tema" || "Elegir otro tema") {
+                swal({
+                    title: "La mocion no pasa",
+                    text: "Se debatirá el tema a abrir",
+                    type: "error"
+                }).then(function() {
+                    $("#contraYSoloContra").show();
+                    $("#votacion").hide();
+                });
+            }
+        }
+    }
+    else if (comite == "UNEP") {
+        if (aFavor > contra) {
+            if (tipo == "Log out") {
+                swal({
+                    title: "The motion pass",
+                    text: "Go out",
+                    type: "success",
+                    html: '<%= link_to "Continue", cerrar_path("UNEP"), :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+            else if (tipo == "List of Speakers") {
+                <% iniciar_oradores %>
+                swal({
+                    title: "The motion pass",
+                    text: "The Speakers List is open",
+                    type: "success",
+                    html: '<%= link_to "Continue", unep_path, :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+            else if (tipo == "Immoderate Caucus" || tipo == "Strategic Meeting" || tipo == "Moderate Caucus") {
+                swal({
+                    title: "The motion pass",
+                    text: 'We are on '+tipo,
+                    type: "success",
+                }).then(function(){
+                    $("#votacion").hide();
+                    $("#oradores").hide();
+                    $("#time").show();
+                });
+            }
+        }
+        else {
+            if (tipo == "Log out") {
+                swal({
+                    title: "The motion doesn't pass",
+                    text: "Repeat the votation",
+                    type: "error"
+                }).then(function() {
+                    $("#time").show();
+                    $("#votacion").hide();
+                });
+            }
+        }
+    }
+    else if (comite == "NATO") {
+        if (aFavor > contra) {
+            if (tipo == "Log out") {
+                swal({
+                    title: "The motion pass",
+                    text: "Go out",
+                    type: "success",
+                    html: '<%= link_to "Continue", cerrar_path("NATO"), :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+            else if (tipo == "List of Speakers") {
+                <% iniciar_oradores %>
+                swal({
+                    title: "The motion pass",
+                    text: "The Speakers List is open",
+                    type: "success",
+                    html: '<%= link_to "Continue", nato_path, :class => "waves-effect waves-light btn" %>',
+                    showConfirmButton: false
+                });
+            }
+            else if (tipo == "Immoderate Caucus" || tipo == "Strategic Meeting"  || tipo == "Moderate Caucus") {
+                swal({
+                    title: "The motion pass",
+                    text: 'We are on '+tipo,
+                    type: "success",
+                }).then(function(){
+                    $("#votacion").hide();
+                    $("#XDDDDDDD").show();
+                    $("#oradores").hide();
+                    $("#time").show();
+                });
+            }
+            else if (tipo == "Opening of Topic" || "Chose else Topic") {
+                swal({
+                    title: "La mocion pasa",
+                    text: "Se procedera a elegir tema.",
+                    type: "success"
+                }).then(function() {
+                    $("#votacion").hide();
+                    $("#elegirTopic").show();
+                });
+            }
+        }
+        else {
+            if (tipo == "Log out") {
+                swal({
+                    title: "The motion doesn't pass",
+                    text: "Repeat the votation",
+                    type: "error"
+                }).then(function() {
+                    $("#time").show();
+                    $("#votacion").hide();
+                });
+            }
+        }
+    }
+}
   function aniadirPresentes(){
       $("#time").hide();
       $("#votacion").hide()

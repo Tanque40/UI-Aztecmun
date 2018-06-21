@@ -1,0 +1,21 @@
+<div id="timerTest">
+    <div class="row">
+        <div class="col s6">
+            <label for="minutos1" class="left">Minutos</label>
+            <input type="number" id="minutos1" name="minutos" placeholder="minutos" value="0">
+        </div>
+        <div class="col s6">
+            <label for="segundos1" class="left">Segundos</label>
+            <input type="number" id="segundos1" name="segundos" placeholder="segundos" value="0">
+        </div>
+    </div>
+    <div class="center">
+        <button type="button" name="button" onclick="temporizador1()" data-remote="true" class="waves-effect waves-light btn">Iniciar</button>
+        <button type="button" id="detener" name="button" onclick="detener1()" data-remote="true" class="waves-effect waves-light btn">Detener</button>
+        <button type="button" name="button" onclick="reset1()" data-remote="true" class="waves-effect waves-light btn">Reiniciar</button>
+    </div>
+    <h3 id="min1" class="center">00:00</h3>
+    <div class="progress" id="progress1">
+        <div class="determinate" style="width: 100%; heigth: 100px;"></div>
+    </div>
+</div>

@@ -4,3 +4,90 @@
     <span id="tituloOradores" class="card-title">Speakers List</span>
 <% end %>
 <hr>
+<% if esCDE? %>
+    <div class="collection" id="oradoresForCDE">
+        <% i = 0 %>
+        <% @presentes.sort.each do |s| %>
+                <% if i == 0 %>
+                    <li class="collection-item hide" id="<%= i %>"><%= s.pais %></li>
+                <% else %>
+                    <li class="collection-item hide" id="<%= i %>"><%= s.pais %></li>
+                <% end %>
+                <% i += 1%>
+        <% end %>
+    </div>
+<% else %>
+    <div class="collection" id="oradoresForTheRest">
+
+    </div>
+    <hr>
+    <br><br>
+    <ul class="collection" id="PosiblesOradoresForTheRest">
+        <% i = 0 %>
+        <% @presentes.sort.each do |s| %>
+                <% if i == 0 %>
+                    <li class="collection-item" id="<%= i %>p"><div><%= s.pais %><a href="#!" class="secondary-content" onclick="aniadirAOradores(this)" data-remote="true"><i class="material-icons">send</i></a></div></li>
+                <% else %>
+                    <li class="collection-item" id="<%= i %>p"><div><%= s.pais %><a href="#!" class="secondary-content" onclick="aniadirAOradores(this)" data-remote="true"><i class="material-icons">send</i></a></div></li>
+                <% end %>
+                <% i += 1%>
+        <% end %>
+    </ul>
+<% end %>
+<script type="text/javascript">
+totalDeOradores = <%= i %>;
+id = 0;
+function removerDeOradores(){
+    <% if esCDE? %>
+        $("#"+id).removeClass('active');
+        $("#"+id).hide();
+        id += 1;
+        $("#"+id).addClass('active');
+        if(id == totalDeOradores){
+            swal({
+                title: "Lista de Posturas ha terminado",
+                text: "Se procedera con el debate libre",
+                type: 'success'
+            }).then(function(){
+                clearTimeout(time);
+                $("#minutos").val(0);
+                $("#segundos").val(0);
+                $("#minutos").attr("id", "minu");
+                $("#segundos").attr("id", "seg");
+                $("#min").attr("id", "otrapendejada");
+                $("#progress").attr("id", "cualquierotrapendejada");
+                $('#oradores').hide();
+                $('#time').show();
+                <% terminar_oradores %>
+            });
+        }
+    <% else %>
+        modify = document.getElementsByClassName("collection-item hide p");
+        modify[0].classList.remove("hide");
+        modify = document.getElementsByClassName("collection-item p");
+        modify[0].classList.remove("p");
+        $(".collection-item.h.active").remove();
+        element = document.getElementsByClassName("collection-item h");
+        element[0].classList.add("active");
+    <% end %>
+
+}
+mostrado = 0;
+function aniadirAOradores(seleccionado){
+    nuevoAMostrar = $(seleccionado).parent().parent().attr("id");
+    texto = $(seleccionado).parent().text();
+    texto = texto.slice(0, -4);
+    $("#"+nuevoAMostrar).addClass("hide");
+    $("#"+nuevoAMostrar).addClass("p");
+    nuevoAMostrar = nuevoAMostrar.slice(0, -1);
+    if (mostrado == 0) {
+        $("#oradoresForTheRest").append('<li class="collection-item h active" id="p">'+texto+'</li>');
+        mostrado += 1;
+    }
+    else{
+        $("#oradoresForTheRest").append('<li class="collection-item h" id="p">'+texto+'</li>');
+        mostrado += 1;
+    }
+
+}
+</script>
