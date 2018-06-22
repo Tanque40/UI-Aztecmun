@@ -8,9 +8,12 @@ class InterfazController < ApplicationController
       @totalPresentes = @presentes.length
       @topico = Topic.where(comite_id: 1)
       @topico.each do |t|
+          logger.info { t.use }
         if t.use
             @activeTopic = true
             @topic = t.topico
+            logger.info { t.topico }
+            break
         else
             @activeTopic = false
         end
@@ -24,9 +27,12 @@ class InterfazController < ApplicationController
       @topico = Topic.where(comite_id: 2)
       @totalPresentes = @presentes.length
       @topico.each do |t|
+          logger.info { t.use }
         if t.use
             @activeTopic = true
             @topic = t.topico
+            logger.info { t.topico }
+            break
         else
             @activeTopic = false
         end
@@ -43,9 +49,12 @@ class InterfazController < ApplicationController
      end
      @topico = Topic.where(comite_id: 3)
      @topico.each do |t|
+         logger.info { t.use }
        if t.use
            @activeTopic = true
            @topic = t.topico
+           logger.info { t.topico }
+           break
        else
            @activeTopic = false
        end
@@ -59,9 +68,12 @@ class InterfazController < ApplicationController
       @topico = Topic.where(comite_id: 4)
       @totalPresentes = @presentes.length
       @topico.each do |t|
+          logger.info { t.use }
         if t.use
             @activeTopic = true
             @topic = t.topico
+            logger.info { t.topico }
+            break
         else
             @activeTopic = false
         end

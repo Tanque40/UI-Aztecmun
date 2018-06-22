@@ -9,9 +9,9 @@
         <% i = 0 %>
         <% @presentes.sort.each do |s| %>
                 <% if i == 0 %>
-                    <li class="collection-item hide" id="<%= i %>"><%= s.pais %></li>
+                    <li class="collection-item active" id="<%= i %>"><%= s.pais %></li>
                 <% else %>
-                    <li class="collection-item hide" id="<%= i %>"><%= s.pais %></li>
+                    <li class="collection-item" id="<%= i %>"><%= s.pais %></li>
                 <% end %>
                 <% i += 1%>
         <% end %>

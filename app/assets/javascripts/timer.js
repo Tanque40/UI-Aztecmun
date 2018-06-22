@@ -1,6 +1,7 @@
 function temporizador(){
   minutos = parseInt(document.getElementById('minutos').value);
   segundos = parseInt(document.getElementById('segundos').value);
+  console.log(minutos);
   tiempo = (minutos*60+segundos)*1000;
   console.log(tiempo);
   cambio = true
@@ -36,7 +37,6 @@ function temporizador(){
             'success'
         );
         clearTimeout(time);
-        removerDeOradores();
     }
   }, 1000);
 }
@@ -90,7 +90,6 @@ function continuar(){
           'success'
         )
         clearTimeout(time);
-        removerDeOradores();
       }
     }, 1000);
 }

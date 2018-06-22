@@ -12,12 +12,48 @@
 <body>
     <%= yield %>
 </body>
+
 <script type="text/javascript">
+function pregunt(opt, num) {
+    if (opt == "a") {
+        swal({
+            title: "The delegate accepts",
+            text: "Start the questions",
+            type: "success"
+        }).then(function (){
+            $("#opts").hide();
+            $("#FNI").show();
+        });
+    }
+    else if (opt == "d") {
+        swal({
+            title: "The delegate deny",
+            text: "Continue with the session",
+            type: "warning"
+        }).then(function (){
+            $("#preguntas").hide();
+            $("#oradores").show();
+        });
+    }
+    else {
+        swal({
+            title: "The questions finish",
+            text: "Continue with the session",
+            type: "success"
+        }).then(function () {
+
+            $("#preguntas").hide();
+            $("#oradores").show();
+        });
+    }
+}
 if (<%= !@presentes.blank? && @activeTopic %>){
     $('#lista').hide();
     $('#contraYSoloContra').hide();
     $('#votacion').hide();
     $("#XDDDDDDD").hide();
+    $("#preguntas").hide();
+    $("#FNI").hide();
     <% if esCDE? %>
         $('#time').hide();
         $('#oradores').show();
@@ -35,9 +71,11 @@ if (<%= !@presentes.blank? && @activeTopic %>){
     $('#time').hide();
     $('#votacion').hide();
     $('#oradores').hide();
+    $("#preguntas").hide();
     $("#elegirTopic").show();
 }else {
     $("#elegirTopic").hide();
+    $("#preguntas").hide();
     $('#contraYSoloContra').hide();
     $('#time').hide();
     $('#votacion').hide();
@@ -126,8 +164,7 @@ function votar(comite){
                 });
             }
         }
-    }
-    else if (comite == "UNEP") {
+    }else if (comite == "UNEP") {
         if (aFavor > contra) {
             if (tipo == "Log out") {
                 swal({
@@ -148,7 +185,7 @@ function votar(comite){
                     showConfirmButton: false
                 });
             }
-            else if (tipo == "Immoderate Caucus" || tipo == "Strategic Meeting" || tipo == "Moderate Caucus") {
+            else if (tipo == "Unmoderated Caucus" || tipo == "Strategic Meeting" || tipo == "Moderate Caucus") {
                 swal({
                     title: "The motion pass",
                     text: 'We are on '+tipo,
@@ -157,6 +194,17 @@ function votar(comite){
                     $("#votacion").hide();
                     $("#oradores").hide();
                     $("#time").show();
+                });
+            }
+            else if (tipo == "Session of questions") {
+                swal({
+                    title: "The motion pass",
+                    text: 'We are on '+tipo,
+                    type: "success",
+                }).then(function(){
+                    $("#votacion").hide();
+                    $("#oradores").hide();
+                    $("#preguntas").show();
                 });
             }
         }
@@ -184,7 +232,7 @@ function votar(comite){
                     showConfirmButton: false
                 });
             }
-            else if (tipo == "List of Speakers") {
+            else if (tipo == "List of speakers") {
                 <% iniciar_oradores %>
                 swal({
                     title: "The motion pass",
@@ -206,14 +254,25 @@ function votar(comite){
                     $("#time").show();
                 });
             }
-            else if (tipo == "Opening of Topic" || "Chose else Topic") {
+            else if (tipo == "Opening of topic" || tipo == "Chose else Topic") {
                 swal({
-                    title: "La mocion pasa",
-                    text: "Se procedera a elegir tema.",
+                    title: "The motion pass",
+                    text: "The topic is selected",
                     type: "success"
                 }).then(function() {
                     $("#votacion").hide();
                     $("#elegirTopic").show();
+                });
+            }
+            else if (tipo == "Session of questions") {
+                swal({
+                    title: "The motion pass",
+                    text: 'We are on '+tipo,
+                    type: "success",
+                }).then(function(){
+                    $("#votacion").hide();
+                    $("#oradores").hide();
+                    $("#preguntas").show();
                 });
             }
         }

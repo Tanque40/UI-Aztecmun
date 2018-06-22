@@ -96,5 +96,6 @@ function continuar1(){
 }
 function reset1(){
   clearTimeout(time);
+  removerDeOradores();
   document.getElementById('min1').innerHTML = "00:00";
 }

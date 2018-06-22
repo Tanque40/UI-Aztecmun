@@ -1,0 +1,47 @@
+<div class="container" id="preguntas">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content" id="contenidoP">
+                    <span class="card-title">Session of questions</span>
+                    <div class="row">
+                        <div class="col s4">
+                            <div class="input-field">
+                                <% options = @presentes.map {|s| [s.pais, s.pais]} %>
+                                <%= select_tag(:propone, options_for_select(options)) %>
+                                <%= label_tag :propone %>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field">
+                                <% options = @presentes.map {|s| [s.pais, s.pais]} %>
+                                <%= select_tag(:secunda, options_for_select(options)) %>
+                                <%= label_tag :secunda %>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field">
+                                <% options = @presentes.map {|s| [s.pais, s.pais]} %>
+                                <%= select_tag(:responde, options_for_select(options)) %>
+                                <%= label_tag :responde %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <div class="input-field">
+                        <%= select_tag(:preguntas, options_for_select([1,2,3,4,5])) %>
+                        <%= label_tag :preguntas %>
+                    </div>
+                    <div class="center">
+                        <div class="" id="opts">
+                            <a href="" class="waves-effect waves-light btn" data-remote="true" onclick='pregunt("a", 0)'>Acept</a>
+                            <a href="" class="waves-effect waves-light btn" data-remote="true" onclick='pregunt("d", 0)'>Deny</a>
+                        </div>
+                        <a href="" class="waves-effect waves-light btn" data-remote="true" onclick='pregunt("finalizar", 0)' id="FNI">Finalizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
